@@ -1,4 +1,11 @@
-/.settings/
+/.settings
 /.project
 /.classpath
-/war/WEB-INF/appengine-generated/
+/war/WEB-INF/appengine-generated
+*.ipr
+*.iml
+*.iws
+/.gradle
+/build
+/out
+/web

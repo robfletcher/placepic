@@ -11,30 +11,41 @@ def bottom = 1.0
 BlobKey blob = new BlobKey(params.key)
 def image = blob.image
 
-image.transform {
-	crop 0.0, 0.0, 1.0, 1.0
-}
+// this is a no-op transform required so we can read image data
+image.crop 0.0, 0.0, 1.0, 1.0
 
-log.info "Opened image $blob.info.filename with height $image.height and width $image.width"
+log.info "Opened image $blob.info.filename which is $image.width x $image.height"
+
 def originalAspect = image.height / image.width
 def desiredAspect = height / width
-def cropPercent = (desiredAspect - originalAspect) / 2
-if (cropPercent > 0) {
-	left += cropPercent
-	right -= cropPercent
+
+log.info "original $originalAspect, required: $desiredAspect"
+
+// resize to a square that will overflow the desired size
+if (originalAspect < desiredAspect) {
+    // original is more landscape than desired
+    int resizeWidth = (image.width / image.height) * height
+    log.info "more landscape than I want: resizing to $resizeWidth x $height"
+    image.resize(resizeWidth, height)
+
+    left = 1 - (width / resizeWidth)
+    left /= 2
+    right = 1 - left
 } else {
-	top += Math.abs(cropPercent)
-	bottom -= Math.abs(cropPercent)
+    // original is more portrait than desired
+    int resizeHeight = (image.height / image.width) * width
+    log.info "more landscape than I want: resizing to $width x $resizeHeight"
+    image.resize(width, resizeHeight)
+
+    top = 1 - (height / resizeHeight)
+    top /= 2
+    bottom = 1 - top
 }
 
-log.info "Aspect: $originalAspect -> $desiredAspect, crop: $cropPercent, l: $left, r: $right, t: $top, b: $bottom"
+log.info "Aspect: $originalAspect -> $desiredAspect, l: $left, r: $right, t: $top, b: $bottom"
 
 image.transform {
-	crop left, top, right, bottom
-}
-
-image.transform {
-	resize width, height
+    crop left, top, right, bottom
 	feeling lucky
 }
 
