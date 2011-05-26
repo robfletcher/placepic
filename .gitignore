@@ -9,3 +9,5 @@
 /build
 /out
 /web
+
+/war/WEB-INF/classes/

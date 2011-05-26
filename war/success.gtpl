@@ -19,6 +19,9 @@
 	        </dl>
 			<img src="/image/480/320?key=${params.key}" alt="${blob.filename}">
 		</section>
+		<nav>
+			<a href="/upload">Upload another&hellip;</a>
+		</nav>
     </body>
 </html>
 
