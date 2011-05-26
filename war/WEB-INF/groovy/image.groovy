@@ -14,35 +14,25 @@ def image = blob.image
 // this is a no-op transform required so we can read image data
 image.crop 0.0, 0.0, 1.0, 1.0
 
-log.info "Opened image $blob.info.filename which is $image.width x $image.height"
-
 def originalAspect = image.height / image.width
 def desiredAspect = height / width
-
-log.info "original $originalAspect, required: $desiredAspect"
 
 // resize to a square that will overflow the desired size
 if (originalAspect < desiredAspect) {
     // original is more landscape than desired
-    int resizeWidth = (image.width / image.height) * height
-    log.info "more landscape than I want: resizing to $resizeWidth x $height"
+    int resizeWidth = Math.ceil((image.width / image.height) * height)
     image.resize(resizeWidth, height)
 
-    left = 1 - (width / resizeWidth)
-    left /= 2
-    right = 1 - left
+    left = (1 - (width / image.width)) / 2
+   right = 1 - left
 } else {
     // original is more portrait than desired
-    int resizeHeight = (image.height / image.width) * width
-    log.info "more landscape than I want: resizing to $width x $resizeHeight"
+    int resizeHeight = Math.ceil((image.height / image.width) * width)
     image.resize(width, resizeHeight)
 
-    top = 1 - (height / resizeHeight)
-    top /= 2
+    top = (1 - (height / image.height)) / 2
     bottom = 1 - top
 }
-
-log.info "Aspect: $originalAspect -> $desiredAspect, l: $left, r: $right, t: $top, b: $bottom"
 
 image.transform {
     crop left, top, right, bottom
