@@ -1,4 +1,6 @@
 import com.google.appengine.api.blobstore.*
+import com.google.appengine.api.datastore.*
+import static com.google.appengine.api.datastore.FetchOptions.Builder.*
 
 int width = Math.abs(params.width.toInteger())
 int height = Math.abs(params.height.toInteger())
@@ -8,7 +10,16 @@ def top = 0.0
 def right = 1.0
 def bottom = 1.0
 
-BlobKey blob = new BlobKey(params.key)
+def blob
+if (params.key) {
+	blob = new BlobKey(params.key)
+} else {
+	def query = new Query("image")
+	def preparedQuery = datastore.prepare(query)
+	def entities = preparedQuery.asList(withLimit(1))
+	blob = new BlobKey(entities[0].blobKey)
+}
+
 def image = blob.image
 
 // this is a no-op transform required so we can read image data

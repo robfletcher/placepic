@@ -3,19 +3,13 @@
     <body>
         <h1>Success</h1>
         <% def blob = new BlobKey(params.key) %>
-
-        <div>
-            File name: ${blob.filename} <br/>
-            Content type: ${blob.contentType}<br/>
-            Creation date: ${blob.creation}<br/>
-            Size: ${blob.size}
-        </div>
-
-        <h2>Content of the blob</h2>
-        
-        <div>
-            <% blob.withReader { out << it.text } %>
-        </div>
+        <dl>
+            <dt>File name</dt><dd>${blob.filename}</dd>
+            <dt>Content type</dt><dd>${blob.contentType}</dd>
+            <dt>Creation date</dt><dd>${blob.creation}</dd>
+            <dt>Size</dt><dd>${blob.size}</dd>
+        </dl>
+		<img src="/image/480/320?key=${params.key}" alt="${blob.filename}">
     </body>
 </html>
 
