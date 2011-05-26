@@ -1,6 +1,7 @@
 import com.google.appengine.api.blobstore.*
 import com.google.appengine.api.datastore.*
 import static com.google.appengine.api.datastore.FetchOptions.Builder.*
+import static com.google.appengine.api.datastore.Query.FilterOperator.*
 
 int width = Math.abs(params.width.toInteger())
 int height = Math.abs(params.height.toInteger())
@@ -15,9 +16,11 @@ if (params.key) {
 	blob = new BlobKey(params.key)
 } else {
 	def query = new Query("image")
+	query.addFilter("rnd", GREATER_THAN_OR_EQUAL, new Random().nextInt())
+	query.addSort("rnd")
 	def preparedQuery = datastore.prepare(query)
-	def entities = preparedQuery.asList(withLimit(1))
-	blob = new BlobKey(entities[0].blobKey)
+ 	def entities = preparedQuery.asList(withLimit(1))
+	blob = entities.first().blob
 }
 
 def image = blob.image
