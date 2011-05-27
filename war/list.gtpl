@@ -2,7 +2,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Image status</title>
+		<title>Image list</title>
 	</head>
 	<body>
 		
@@ -19,7 +19,8 @@
 					<span class="filename">${entity.filename}</span>
 					<span class="dimensions">${entity.width}x${entity.height}</span>
 					<span class="content-type">${entity.contentType}</span>
-					<a href="/delete/${entity.key.id}">delete</a>
+					<span class="creation">${entity.creation}</span>
+					<a href="/admin/delete/${entity.key.id}">delete</a>
 				</li>
 			<% } %>
 		</ul>

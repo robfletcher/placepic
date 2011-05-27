@@ -2,8 +2,8 @@
 	<a href="/">Home</a>
 	<% if (user) { %>
 		<% if (users.isUserAdmin()) { %>
-			<a href="/list">Image list</a>
-			<a href="/upload">Upload an image</a>
+			<a href="/admin/list">Image list</a>
+			<a href="/admin/upload">Upload an image</a>
 		<% } %>
 		<a href="${users.createLogoutURL('/')}">Log out<a>
 	<% } else { %>

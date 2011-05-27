@@ -5,6 +5,7 @@ import com.google.appengine.api.datastore.*
 import com.google.appengine.api.images.*
 import static com.google.appengine.api.datastore.FetchOptions.Builder.*
 import static com.google.appengine.api.datastore.Query.FilterOperator.*
+import static com.google.appengine.api.datastore.Query.SortDirection.*
 
 class ImageHelper {
 	
@@ -60,6 +61,7 @@ class ImageHelper {
 		entity.width = image.width
 		entity.height = image.height
 		entity.rnd = first ? Integer.MAX_VALUE : new Random().nextInt()
+		entity.creation = blob.info.creation
 		entity.save()
 
 		entity
@@ -84,6 +86,7 @@ class ImageHelper {
 	
 	static void each(datastore, Closure closure) {
 		def query = new Query("Image")
+		query.addSort("creation", DESCENDING)
 		def preparedQuery = datastore.prepare(query)
 		for (def itr = preparedQuery.asIterator(); itr.hasNext(); ) {
 			closure(itr.next())

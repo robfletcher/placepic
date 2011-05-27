@@ -2,4 +2,4 @@ import placepic.ImageHelper
 
 ImageHelper.delete(datastore, params.id)
 
-redirect "/list"
+redirect "/admin/list"
