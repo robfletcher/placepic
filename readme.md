@@ -2,7 +2,6 @@ This is a placeholder image service written in [Gaelyk][3] <s>inspired by</s> _r
 	
 ## To-do
 
-* display URL format on home page
 * alternate image route specifying _id_
 * set cache headers on image responses
 * bootstrap images
