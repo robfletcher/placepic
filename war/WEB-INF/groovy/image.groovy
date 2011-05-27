@@ -1,7 +1,3 @@
-import com.google.appengine.api.blobstore.*
-import com.google.appengine.api.datastore.*
-import static com.google.appengine.api.datastore.FetchOptions.Builder.*
-import static com.google.appengine.api.datastore.Query.FilterOperator.*
 import placepic.ImageHelper
 
 int width = Math.abs(params.width.toInteger())
