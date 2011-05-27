@@ -10,7 +10,6 @@ int height = Math.abs(params.height.toInteger())
 def entity = params.id ? ImageHelper.get(datastore, params.id) : ImageHelper.random(datastore)
 
 if (entity) {
-	log.info "found entity $entity"
 	def image = entity.blob.image
 
 	def left = 0.0
