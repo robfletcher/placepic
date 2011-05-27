@@ -5,7 +5,13 @@
 		<title>Image status</title>
 	</head>
 	<body>
-		<h1>Image status</h1>
+		
+		<header>
+			<h1>Image list</h1>
+		</header>
+
+		<% include '/WEB-INF/includes/nav.gtpl' %>
+
 		<ul>
 			<% ImageHelper.each(datastore) { entity -> %>
 				<li>
@@ -17,8 +23,6 @@
 				</li>
 			<% } %>
 		</ul>
-		<nav>
-			<a href="/upload">Upload another&hellip;</a>
-		</nav>
+		
 	</body>
 </html>
