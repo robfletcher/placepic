@@ -1,4 +1,4 @@
-<% import com.google.appengine.api.blobstore.BlobKey %>
+<% import placepic.ImageHelper %>
 <!doctype html>
 <html>
 	<head>
@@ -9,15 +9,16 @@
 	        <h1>Image upload</h1>
 			<h2>Success!</h1>
 		</header>
-        <% def blob = new BlobKey(params.key) %>
+		<%
+			def image = ImageHelper.get(datastore, params.id)
+		%>
 		<section class="image-data">
 	        <dl>
-	            <dt>File name</dt><dd>${blob.filename}</dd>
-	            <dt>Content type</dt><dd>${blob.contentType}</dd>
-	            <dt>Creation date</dt><dd>${blob.creation}</dd>
-	            <dt>Size</dt><dd>${blob.size}</dd>
+	            <dt>File name</dt><dd>${image.filename}</dd>
+	            <dt>Content type</dt><dd>${image.contentType}</dd>
+	            <dt>Size</dt><dd>${image.width} x ${image.height}</dd>
 	        </dl>
-			<img src="/image/480/320?key=${params.key}" alt="${blob.filename}">
+			<img src="/image/320/200?id=${params.id}" alt="${image.filename}">
 		</section>
 		<nav>
 			<a href="/upload">Upload another&hellip;</a>
