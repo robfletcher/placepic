@@ -1,4 +1,5 @@
 get "/image/@width/@height", forward: "/image.groovy?width=@width&height=@height",
+	cache: 24.hours,
 	validate: { width.isInteger() && width.toInteger() > 0 && height.isInteger() && height.toInteger() > 0 }
 
 get "/upload",  forward: "/upload.gtpl"
