@@ -11,3 +11,5 @@
 /web
 
 /war/WEB-INF/classes/
+*.log
+/war/"/
